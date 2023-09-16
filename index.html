@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Long Elephant</title>
+    <style>
+        body {
+            font-family: 'Trebuchet MS';
+        }
+
+        .info-div {
+            position: fixed;
+            width: 20%;
+            height: 30%;
+            top: 15px;
+            right: 15px;
+            border: 2px solid black;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: white;
+            z-index: 9999;
+        }
+        pre {
+            text-align: center;
+            font-size: 200%;
+            font-weight: normal;
+        }
+
+        .credits-container {
+            background-color: lightgray;
+            border-radius: 50vmin;
+            padding: 10px;
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="info-div">
+        TEST
+    </div>
+
+    <!-- Content of scroll -->
+    <pre class="pre">
+           ___     _,.--.,_
+        .-~   ~--"~-.   ._ "-.
+       /      ./_    Y    "-. \
+      Y       :~     !         Y
+      lq p    |     /         .|
+   _   \. .-, l    /          |j
+  ()\___) |/   \_/";          !
+   \._____.-~\  .  ~\.      ./
+              Y_ Y_. "vr"~  T
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+    </pre>
+
+    <div class="credits-container">
+        <a href="#">My Github</a> <span style="color:red;">Felipe Offlin3</span>
+    </div>
+
+    <br>
+    <script>
+        const body = document.querySelector("body")
+        const pre = document.querySelector(".pre")
+        const infoDiv = document.querySelector(".info-div");
+        
+        const wowRanks = {
+            1: "Wow",
+            5: "Wow Wow",
+            15: "Wow Long Wow",
+            25: "Long Wow Wow",
+            40: "Long Wow Wow Long Wow",
+            50: "Wow Long Wow Long Wow Long Wow",
+            70: "Long Wow Very Wow Long Wow Long Very Wow",
+            90: "Long Very Wow Wow Long Very Wow Wow Long Very Wow Long Wow",
+            130: "Super Very Wow Long Very Wow Long Very Wow Super Long Wow Long Super",
+            160: "Mega Wow Mega Long Wow Super Long Wow Very Mega",
+            200: "Ultra Mega Wow Ultra Long Wow Super Long Wow Mega",
+            250: "Hyper Ultra Mega Wow Hyper Long Wow Super Long Wow Mega",
+            300: "Legendary Hyper Ultra Mega Wow Legendary Long Wow Super Long Wow Mega",
+            // Continue as needed
+        };
+
+
+        let currentWowRank = 0;
+
+
+        let score = 0;
+
+
+        infoDiv.innerHTML = score;
+
+        let currentScrollDelta = window.scrollY; //set that to screen y, check if it is scrolling down
+
+
+        let i = 0; // Initialize the counter
+
+        while (body.scrollHeight > pre.clientHeight) {
+            i++;
+            if (i > 40) { //prevent looping forever
+                break;
+            }
+            pre.textContent += "              (  (    |L    j\n";
+            console.log(body.scrollHeight);
+            console.log(pre.clientHeight);
+        }
+
+
+        console.log(body.scrollHeight)
+        console.log(pre.clientHeight)
+
+
+        document.addEventListener("scroll", event => {
+            console.log(window.scrollY)
+            if (window.scrollY > currentScrollDelta) {
+                score = Math.ceil(window.scrollY / 3);
+                infoDiv.innerHTML = `Your Score: <b>${score}</b> <br>
+Wows: <b>${wowscore}</b><br>
+CurrentWowRank: <b>${currentWowRank}</b><br>`;
+
+                pre.innerHTML += 
+`(  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              (  (    |L    j
+              `
+                console.log("scroll!");
+                if (Math.abs(window.scrollY - currentScrollDelta) < 170) {
+                    if (Math.random() > 0.95) {
+                        spawnWow();
+                    }
+                } else {
+                    spawnWow();
+                }
+
+                if (wowscore > 300) {
+                    if (Math.random() > 0.95) {
+                        createSuperWow()
+                    }
+                    
+                }
+
+                
+                
+                if (wowRanks[wowscore] != undefined) {
+                    currentWowRank = wowRanks[wowscore];
+                    console.log(currentWowRank)
+                }
+                
+            }
+            
+            currentScrollDelta = window.scrollY;
+        }); 
+
+
+        let wowscore = 0; // Initialize the wowscore variable
+
+        function spawnWow() {
+            // Create an h1 element
+            let wow = document.createElement("h1");
+            
+            // Set the text content
+            wow.textContent = "WOW";
+            
+            // Set the position to absolute
+            wow.style.position = "absolute";
+            
+            // Generate random top and left positions within the visible area
+            let randomTop = Math.random() * (window.innerHeight - 50); // Subtract an appropriate value to keep it within bounds
+            let randomLeft = Math.random() * (window.innerWidth - 50); // Subtract an appropriate value to keep it within bounds
+            
+            // Set the top and left positions
+            wow.style.top = randomTop + window.scrollY + "px";
+            wow.style.left = randomLeft + "px";
+
+            // Add an event listener to check if the element is offscreen
+            window.addEventListener("scroll", function() {
+                let wowRect = wow.getBoundingClientRect();
+                if (wowRect.right < 0 || wowRect.left > window.innerWidth || wowRect.bottom < 0 || wowRect.top > window.innerHeight) {
+                    if (wow.style.color != "green") { //when it is green don't make it
+                        wowscore += 1;
+                        wow.style.color = "green";
+                    }
+                    // The element is offscreen, increment the wowscore
+                    
+                    console.log("WOW Score: " + wowscore);
+
+                    // Remove the offscreen "WOW" element
+                     //simplify this code as much as possible to make it undrerstandable and make it so that green wows don't count
+                }
+            });
+
+            // Append the element to the body of the document
+            document.body.appendChild(wow);
+        }
+
+        // Call the function to spawn the "WOW" element
+        spawnWow();
+
+        function createSuperWow() {
+            let superWow = document.createElement("h1");
+
+            superWow.textContent = "WOW";
+            
+            superWow.style.position = "absolute"; // Use "fixed" for consistent positioning
+            superWow.style.left = "50%";
+            superWow.style.top = window.scrollY + "px"; // Remove the -100 for more accurate positioning
+            superWow.style.fontSize = "20vw";
+            superWow.style.transform = "translateX(-50%)";
+
+            document.body.appendChild(superWow);
+        }
+
+
+
+
+// Call the function to spawn the "WOW" element
+
+        
+        // Call the function to spawn the "WOW" element
+        
+        
+        // Call the function to spawn the "WOW" element
+    </script>
+</body>
+</html>
